@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mobile Selling Platform</title>
+	<!-- Add Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<!-- Add custom CSS -->
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<header>
+		<div class="container">
+			<h1 class="text-center text-white my-4">Zeli Mobile Selling Shop</h1>
+		</div>
+	</header>
+
+	<main>
+		<div class="container">
+			<form class="py-5">
+				<div class="form-group">
+					<label for="model">Mobile Model:</label>
+					<input type="text" class="form-control" id="model" name="model" required>
+				</div>
+
+				<div class="form-group">
+					<label for="price">Mobile Price:</label>
+					<input type="number" class="form-control" id="price" name="price" required>
+				</div>
+
+				<div class="form-group">
+					<label for="color">Mobile Color:</label>
+					<input type="text" class="form-control" id="color" name="color" required>
+				</div>
+
+				<div class="form-group">
+					<label for="specification">Mobile Specification:</label>
+					<textarea class="form-control" id="specification" name="specification" required></textarea>
+				</div>
+
+				<div class="form-group">
+					<label for="company">Mobile Company:</label>
+					<input type="text" class="form-control" id="company" name="company" required>
+				</div>
+
+				<button type="submit" class="btn btn-primary">Sell Mobile</button>
+			</form>
+		</div>
+	</main>
+	
+	<footer>
+		<div class="container">
+			<p class="text-center">@Muzammil Mobile Shop</p>
+		</div>
+	</footer>
+
+	<!-- Add jQuery and Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        var app = angular.module("myapp",[]);
+        app.controller("usercontroller", function($scope, $http){
+        $scope.insertData = function(){
+        $http.post(
+        "database.php",
+        {'model':$scope.model, 'price':$scope.price, 'color':$scope.color, 'specification':$scope.specification, 'company':$scope.company}
+        ).success(function(data){
+        alert(data);
+        $scope.name = null;
+        $scope.email = null;
+        $scope.displayData();
+        });
+        }
+        $scope.displayData = function(){
+        $http.get("select.php").success(function(data){
+        $scope.names = data;
+        });
+        }
+        });
